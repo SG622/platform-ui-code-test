@@ -8,3 +8,31 @@
 h2 {
   border-bottom: 1px solid lightgray;
 }
+
+li {
+	list-style: none;
+}
+
+.card-unselected {
+	border: 1px blue solid;
+	margin-bottom: 1em;
+}
+
+.card-unselected:hover {
+	color: blue;
+}
+
+.card-selected {
+	border: 1px gray solid;
+	margin-bottom: 1em;
+}
+
+.add-pointer {
+	cursor: pointer;
+}
+
+.close {
+	color: red;
+	font-size: 18px;
+	padding-left: .5em;
+}

@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+export interface ProviderModel {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+}
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -7,8 +14,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  public selectedProviders = [];
-  public unselectedProviders = [
+  public selectedProviders: ProviderModel[] = [];
+  public unselectedProviders: ProviderModel[]  = [
     {
       id: '1',
       name: 'John',
@@ -28,9 +35,32 @@ export class ListComponent implements OnInit {
       phone: '4343219384'
     }
   ];
+  public storage;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.storage = window.sessionStorage;
+    if (this.storage) {
+       this.selectedProviders = JSON.parse(this.storage.getItem('selected')) || this.selectedProviders; 
+       this.unselectedProviders = JSON.parse(this.storage.getItem('unselected')) || this.unselectedProviders;
+    }
+  }
 
+  selectProvider(item: ProviderModel, idx: number): void {
+    this.selectedProviders.push(item);
+    this.unselectedProviders.splice(idx, 1);
+    this.storeStorage();
+  }
+
+  removeProvider(item: ProviderModel, idx: number): void {
+    this.unselectedProviders.push(item);
+    this.selectedProviders.splice(idx, 1);
+    this.storeStorage();
+  }
+
+  storeStorage(): void {
+    this.storage.setItem('selected', JSON.stringify(this.selectedProviders));
+    this.storage.setItem('unselected',JSON.stringify(this.unselectedProviders));
+  }
 }

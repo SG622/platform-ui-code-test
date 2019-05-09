@@ -1,4 +1,23 @@
 <div class="list-container">
+	<div></div>
   <h2>Providers</h2>
-
+  <div class="card add-pointer card-unselected" 
+  		*ngFor="let item of unselectedProviders; let idx = index"
+  		(click)="selectProvider(item, idx)">
+  	<ul>
+  		<li>{{item.name}}</li>
+  		<li>{{item.address}}</li>
+  		<li>{{item.phone}}</li>
+  	</ul>
+  </div>
+  <h2>Selected Providers</h2>
+  <div class="card card-selected" 
+  		*ngFor="let item of selectedProviders; let idx = index">
+  	<div class="close add-pointer" (click)="removeProvider(item, idx)">&times;</div>
+  	<ul>
+  		<li>{{item.name}}</li>
+  		<li>{{item.address}}</li>
+  		<li>{{item.phone}}</li>
+  	</ul>
+  </div>
 </div>
